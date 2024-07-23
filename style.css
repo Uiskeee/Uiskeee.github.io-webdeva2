@@ -151,9 +151,12 @@ section h2 {
     grid-column: 1 / span 100;
     grid-row: 1 / span 100; 
     max-width: 100%; 
-    height: auto;
+    height: 100%;
   }
 
+.map-marker {
+    background-color: black;
+}
 .map-grid {
     display: grid;
     grid-template-columns: repeat(100, 1fr); /* Adjust grid columns as needed */
