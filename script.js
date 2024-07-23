@@ -38,28 +38,50 @@ button.addEventListener('click', () => {
 
 })
 
-// for tooltip on world map
+// Select all map markers and tooltips
 const mapMarkers = document.querySelectorAll('.map-marker');
 const tooltips = document.querySelectorAll('.tooltip');
 
+// Function to close all tooltips except the one that is clicked
+function closeAllTooltipsExcept(clickedIndex) {
+    tooltips.forEach((tooltip, index) => {
+        if (index !== clickedIndex && tooltip.classList.contains('active')) {
+            tooltip.classList.remove('active');
+            mapMarkers[index].classList.remove('active');
+        }
+    });
+}
+
 // Add click event listeners to each map marker
 mapMarkers.forEach((marker, index) => {
+    marker.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click from propagating to document
 
-  
-    marker.addEventListener('click', () => {
         // Toggle active class for the clicked marker and its corresponding tooltip
         marker.classList.toggle('active');
         tooltips[index].classList.toggle('active');
+
+        // Close all other tooltips except the clicked one
+        closeAllTooltipsExcept(index);
     });
 
     // Close tooltip when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!marker.contains(e.target)) {
+    document.addEventListener('click', (event) => {
+        // Check if the click target is not the current marker or its tooltip
+        if (!marker.contains(event.target)) {
             tooltips[index].classList.remove('active');
+            marker.classList.remove('active');
         }
     });
 
-
+    // For touch devices, close tooltip when tapping outside
+    document.addEventListener('touchstart', (event) => {
+        // Check if the touch target is not the current marker or its tooltip
+        if (!marker.contains(event.target)) {
+            tooltips[index].classList.remove('active');
+            marker.classList.remove('active');
+        }
+    });
 });
 
 
