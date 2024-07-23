@@ -66,6 +66,21 @@ mapMarkers.forEach((marker, index) => {
         closeAllTooltipsExcept(index);
     });
 
+    // Touch event listener for mobile
+    marker.addEventListener('touchstart', (event) => {
+        event.stopPropagation(); // Prevent the touch event from propagating to document
+
+        // Toggle active class for the touched marker and its corresponding tooltip
+        marker.classList.toggle('active');
+        tooltips[index].classList.toggle('active');
+
+        // Close all other tooltips except the touched one
+        closeAllTooltipsExcept(index);
+
+        // Prevent default touch behavior (e.g., scrolling)
+        event.preventDefault();
+    });
+
     // Close tooltip when clicking or touching outside
     document.addEventListener('click', (event) => {
         // Check if the click target is not the current marker or its tooltip
@@ -75,11 +90,14 @@ mapMarkers.forEach((marker, index) => {
         }
     });
 
-
-
-
-
-
+    // Close tooltip on touch outside for mobile
+    document.addEventListener('touchstart', (event) => {
+        // Check if the touch event target is not the current marker or its tooltip
+        if (!marker.contains(event.target)) {
+            tooltips[index].classList.remove('active');
+            marker.classList.remove('active');
+        }
+    });
 });
 
 
