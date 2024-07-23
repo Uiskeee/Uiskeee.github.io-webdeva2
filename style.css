@@ -273,10 +273,28 @@ html {
     scroll-behavior: smooth;
 }
 
+.computer_screen{
+    display: inline-block;
+}
+
+.phone_screen{
+    display: none;
+}
+
 
 /* Tablet/Mobile (<=800px) */
 @media only screen and (max-width: 800px) {
     p{
         font-size: 10px;
+    }
+
+
+
+    .computer_screen{
+        display: none;
+    }
+
+    .phone_screen{
+        display: inline-block;
     }
 }
