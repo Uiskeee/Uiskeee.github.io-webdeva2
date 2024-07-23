@@ -1,35 +1,31 @@
-var container = document.querySelector('.main-nav')
-var button = document.querySelector('.nav-toggle')
+var container = document.querySelector('.main-nav');
+var button = document.querySelector('.nav-toggle');
 
-button.addEventListener('click', () => {
+  button.addEventListener('click', () => {
 
   /* Toggle navigation bar animation*/
   if (!container.classList.contains('active')) {
     /* Navigation sliding up*/
-    container.classList.add('active')
-    container.style.height = "auto"
+    container.classList.add('active');
+    container.style.height = "auto";
     /* Get the computed height of the container. */
-    var height = container.clientHeight + "px"
+    var height = container.clientHeight + "px";
     /* Set the height of the content as 0px, */
-    container.style.height = "0px"
+    container.style.height = "0px";
     setTimeout(() => {
-      container.style.height = height
-    }, 0)
-  }
-
-  else {
+      container.style.height = height;
+    }, 0);
+  } else {
     /* Navigation sliding Down*/
     /* Set the height as 0px to trigger the slide up animation. */
-    container.style.height = "0px"
+    container.style.height = "0px";
     container.addEventListener('transitionend', () => {
-      container.classList.remove('active')
+      container.classList.remove('active');
     }, {
       once: true
-    })
+    });
   }
-
-
-})
+});
 
 // Select all map markers and tooltips
 const mapMarkers = document.querySelectorAll('.map-marker');
@@ -47,46 +43,54 @@ function closeAllTooltipsExcept(clickedIndex) {
 
 // Add click event listeners to each map marker
 mapMarkers.forEach((marker, index) => {
-  // Click event listener for desktop
-  marker.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevent the click from propagating to document
-    // Toggle active class for the clicked marker and its corresponding tooltip
-    marker.classList.toggle('active');
-    tooltips[index].classList.toggle('active');
-    // Close all other tooltips except the clicked one
-    closeAllTooltipsExcept(index);
-  });
 
-  // Close tooltip when clicking or touching outside
-  document.addEventListener('click', (event) => {
-    // Check if the click target is not the current marker or its tooltip
-    if (!marker.contains(event.target)) {
-      tooltips[index].classList.remove('active');
-      marker.classList.remove('active');
-    }
-  });
+  if (window.innerWidth > 800) {
+    // Click event listener for desktop
+    marker.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent the click from propagating to document
+      // Toggle active class for the clicked marker and its corresponding tooltip
+      marker.classList.toggle('active');
+      tooltips[index].classList.toggle('active');
+      // Close all other tooltips except the clicked one
+      closeAllTooltipsExcept(index);
+    });
+
+    // Close tooltip when clicking or touching outside
+    document.addEventListener('click', (event) => {
+      // Check if the click target is not the current marker or its tooltip
+      if (!marker.contains(event.target)) {
+        tooltips[index].classList.remove('active');
+        marker.classList.remove('active');
+      }
+    });
+  }
+
+  else {
+    // Touch event listener for mobile
+    marker.addEventListener('touchstart', (event) => {
+      event.stopPropagation(); // Prevent the touch event from propagating to document
+      // Toggle active class for the touched marker and its corresponding tooltip
+      marker.classList.toggle('active');
+      tooltips[index].classList.toggle('active');
+      // Close all other tooltips except the touched one
+      closeAllTooltipsExcept(index);
+      // Prevent default touch behavior 
+      event.preventDefault();
+    });
+
+    // Close tooltip on touch outside for mobile
+    document.addEventListener('touchstart', (event) => {
+      // Check if the touch event target is not the current marker or its tooltip
+      if (!marker.contains(event.target)) {
+        tooltips[index].classList.remove('active');
+        marker.classList.remove('active');
+      }
+    });
+  }
 
 
-  // Touch event listener for mobile
-  marker.addEventListener('touchend', (event) => {
-    event.stopPropagation(); // Prevent the touch event from propagating to document
-    // Toggle active class for the touched marker and its corresponding tooltip
-    marker.classList.toggle('active');
-    tooltips[index].classList.toggle('active');
-    // Close all other tooltips except the touched one
-    closeAllTooltipsExcept(index);
-    // Prevent default touch behavior 
-    event.preventDefault();
-  });
 
-  // Close tooltip on touch outside for mobile
-  document.addEventListener('touchend', (event) => {
-    // Check if the touch event target is not the current marker or its tooltip
-    if (!marker.contains(event.target)) {
-      tooltips[index].classList.remove('active');
-      marker.classList.remove('active');
-    }
-  });
+
 
 
 
@@ -129,4 +133,3 @@ function showDivs(n) {
   }
   x[slideIndex - 1].style.display = "block";
 }
-
