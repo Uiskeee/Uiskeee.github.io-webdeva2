@@ -68,7 +68,7 @@ mapMarkers.forEach((marker, index) => {
 
 
   // Touch event listener for mobile
-  marker.addEventListener('touchstart', (event) => {
+  marker.addEventListener('touchend', (event) => {
     event.stopPropagation(); // Prevent the touch event from propagating to document
     // Toggle active class for the touched marker and its corresponding tooltip
     marker.classList.toggle('active');
@@ -80,7 +80,7 @@ mapMarkers.forEach((marker, index) => {
   });
 
   // Close tooltip on touch outside for mobile
-  document.addEventListener('touchstart', (event) => {
+  document.addEventListener('touchend', (event) => {
     // Check if the touch event target is not the current marker or its tooltip
     if (!marker.contains(event.target)) {
       tooltips[index].classList.remove('active');
