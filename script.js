@@ -44,7 +44,6 @@ function closeAllTooltipsExcept(clickedIndex) {
 // Add click event listeners to each map marker
 mapMarkers.forEach((marker, index) => {
 
-  if (window.innerWidth > 800) {
     // Click event listener for desktop
     marker.addEventListener('click', (event) => {
       event.stopPropagation(); // Prevent the click from propagating to document
@@ -63,9 +62,7 @@ mapMarkers.forEach((marker, index) => {
         marker.classList.remove('active');
       }
     });
-  }
 
-  else {
     // Touch event listener for mobile
     marker.addEventListener('touchstart', (event) => {
       event.stopPropagation(); // Prevent the touch event from propagating to document
@@ -86,7 +83,6 @@ mapMarkers.forEach((marker, index) => {
         marker.classList.remove('active');
       }
     });
-  }
 
 
 
