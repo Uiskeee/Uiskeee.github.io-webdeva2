@@ -63,6 +63,8 @@ mapMarkers.forEach((marker, index) => {
       }
     });
 
+
+    /* NOT WORKING
     // Touch event listener for mobile
     marker.addEventListener('touchstart', (event) => {
       event.stopPropagation(); // Prevent the touch event from propagating to document
@@ -85,7 +87,7 @@ mapMarkers.forEach((marker, index) => {
     });
 
 
-
+*/
 
 
 
