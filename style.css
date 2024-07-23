@@ -154,10 +154,6 @@ section h2 {
     height: 100%;
   }
 
-.map-marker {
-    background-color: black;
-}
-
 .map-grid {
     display: grid;
     grid-template-columns: repeat(100, 1fr); /* Adjust grid columns as needed */
