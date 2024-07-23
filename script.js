@@ -8,14 +8,10 @@ button.addEventListener('click', () => {
     /* Navigation sliding up*/
     container.classList.add('active')
     container.style.height = "auto"
-
     /* Get the computed height of the container. */
     var height = container.clientHeight + "px"
-
     /* Set the height of the content as 0px, */
     container.style.height = "0px"
-
-    /* Do this after the 0px has applied. */
     setTimeout(() => {
       container.style.height = height
     }, 0)
@@ -25,8 +21,6 @@ button.addEventListener('click', () => {
     /* Navigation sliding Down*/
     /* Set the height as 0px to trigger the slide up animation. */
     container.style.height = "0px"
-
-    /* Remove the `active` class when the animation ends. */
     container.addEventListener('transitionend', () => {
       container.classList.remove('active')
     }, {
@@ -56,11 +50,9 @@ mapMarkers.forEach((marker, index) => {
   // Click event listener for desktop
   marker.addEventListener('click', (event) => {
     event.stopPropagation(); // Prevent the click from propagating to document
-
     // Toggle active class for the clicked marker and its corresponding tooltip
     marker.classList.toggle('active');
     tooltips[index].classList.toggle('active');
-
     // Close all other tooltips except the clicked one
     closeAllTooltipsExcept(index);
   });
@@ -75,29 +67,7 @@ mapMarkers.forEach((marker, index) => {
   });
 
 
-  // Touch event listener for mobile
-  marker.addEventListener('touchstart', (event) => {
-    event.stopPropagation(); // Prevent the touch event from propagating to document
 
-    // Toggle active class for the touched marker and its corresponding tooltip
-    marker.classList.toggle('active');
-    tooltips[index].classList.toggle('active');
-
-    // Close all other tooltips except the touched one
-    closeAllTooltipsExcept(index);
-
-    // Prevent default touch behavior 
-    event.preventDefault();
-  });
-
-  // Close tooltip on touch outside for mobile
-  document.addEventListener('touchstart', (event) => {
-    // Check if the touch event target is not the current marker or its tooltip
-    if (!marker.contains(event.target)) {
-      tooltips[index].classList.remove('active');
-      marker.classList.remove('active');
-    }
-  });
 
 
 
