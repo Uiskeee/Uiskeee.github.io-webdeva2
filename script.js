@@ -54,6 +54,7 @@ function closeAllTooltipsExcept(clickedIndex) {
 
 // Add click event listeners to each map marker
 mapMarkers.forEach((marker, index) => {
+    // Click event listener for desktop
     marker.addEventListener('click', (event) => {
         event.stopPropagation(); // Prevent the click from propagating to document
 
@@ -65,7 +66,19 @@ mapMarkers.forEach((marker, index) => {
         closeAllTooltipsExcept(index);
     });
 
-    // Close tooltip when clicking outside
+    // Touchstart event listener for mobile
+    marker.addEventListener('touchstart', (event) => {
+        event.stopPropagation(); // Prevent the touch event from propagating to document
+
+        // Toggle active class for the clicked marker and its corresponding tooltip
+        marker.classList.toggle('active');
+        tooltips[index].classList.toggle('active');
+
+        // Close all other tooltips except the clicked one
+        closeAllTooltipsExcept(index);
+    });
+
+    // Close tooltip when clicking or touching outside
     document.addEventListener('click', (event) => {
         // Check if the click target is not the current marker or its tooltip
         if (!marker.contains(event.target)) {
@@ -74,7 +87,6 @@ mapMarkers.forEach((marker, index) => {
         }
     });
 
-    // For touch devices, close tooltip when tapping outside
     document.addEventListener('touchstart', (event) => {
         // Check if the touch target is not the current marker or its tooltip
         if (!marker.contains(event.target)) {
