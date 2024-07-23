@@ -147,7 +147,6 @@ section h2 {
 
 /* DIFFERENT SPECIES */
 /* For the world map image */
-
 .map {
     grid-column: 1 / span 100;
     grid-row: 1 / span 100; 
@@ -162,6 +161,8 @@ section h2 {
     position: relative;
     width: 100%; 
     margin: auto; 
+
+    z-index: 100;
   }
   
 
