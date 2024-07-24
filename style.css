@@ -298,3 +298,10 @@ html {
         display: inline-block;
     }
 }
+
+#qr_code{
+    display: flex;
+    margin: auto;
+    width: 50%;
+
+}
